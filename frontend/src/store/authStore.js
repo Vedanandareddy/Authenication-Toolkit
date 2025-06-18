@@ -2,7 +2,10 @@ import { create } from "zustand"
 // this is global state management library where we create all the functions and states in this file which can be accessed across all files
 import axios from "axios"
 
-const AUTH_URL = "http://localhost:5000/api/auth"
+const AUTH_URL = import.meta.mode === 'development'
+  ? "http://localhost:5000/api/auth"
+  : "/api/auth";
+
 axios.defaults.withCredentials = true; // cookies are sent on every request 
 export const useAuthStore = create((set) => ({
     user: null,
